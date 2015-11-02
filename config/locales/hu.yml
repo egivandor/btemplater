@@ -1,2 +1,4 @@
 hu:
   cancel: 'Mégsem'
+  actions:
+    show: 'Megjelenítés'

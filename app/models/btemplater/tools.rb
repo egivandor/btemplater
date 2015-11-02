@@ -11,7 +11,7 @@ module Btemplater
           redirect_to redirect_root
         end
       else
-        render "new"
+        render 'new'
       end
     end
 
