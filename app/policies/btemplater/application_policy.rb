@@ -12,7 +12,7 @@ module Btemplater
     end
 
     def show?
-      scope.where(:id => record.id).exists?
+      false
     end
 
     def create?
@@ -20,7 +20,7 @@ module Btemplater
     end
 
     def new?
-      create?
+      false
     end
 
     def update?
@@ -28,7 +28,7 @@ module Btemplater
     end
 
     def edit?
-      update?
+      false
     end
 
     def destroy?
@@ -50,6 +50,10 @@ module Btemplater
       def resolve
         scope
       end
+    end
+
+    def method_missing(:method, args)
+      false
     end
   end
 end

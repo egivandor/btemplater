@@ -1,6 +1,8 @@
 module Btemplater
   module IndexHelper
     def do_index(args)
+      raise Pundit::NotAuthorizedError unless "#{args[:model]}Policy".constantize.new(current_user, args[:model]).index?
+
       args.merge(
         title: [],
         columns: [],
@@ -70,10 +72,12 @@ module Btemplater
               end
               concat(content_tag(:td) do
                 args[:actions].each do |action|
-                  if action.instance_of? Btemplater::ActionDecorator
-                    concat(content_tag(:div, action_decorator(action, item), style: 'display: inline;'))
-                  else
-                    concat(content_tag(:div, send("#{action}_action", args), style: 'display: inline;'))
+                  if "#{item.class.to_s}Policy".constantize.new(current_user, item).send("#{action.name}?")
+                    if action.instance_of? Btemplater::ActionDecorator
+                      concat(content_tag(:div, action_decorator(action, item), style: 'display: inline;'))
+                    else
+                      concat(content_tag(:div, send("#{action}_action", args), style: 'display: inline;'))
+                    end
                   end
                 end
               end)
