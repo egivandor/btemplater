@@ -3,7 +3,7 @@ module Btemplater
     def do_new(args)
       args.merge(
         title: [],
-        collumns: [],
+        columns: [],
         items: [],
         model: nil,
         url: nil,

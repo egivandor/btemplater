@@ -2,3 +2,7 @@ hu:
   cancel: 'Mégsem'
   actions:
     show: 'Megjelenítés'
+    edit: 'Szerkesztés'
+    destroy: 'Törlés'
+    are_you_sure: 'Biztos benne, hogy törli?'
+    back: 'Vissza'
