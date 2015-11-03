@@ -25,7 +25,7 @@ module Btemplater
                                 end)
                     concat(content_tag(:div, class: 'actions') do
                                           concat f.submit class: 'btn btn-primary'
-                                          concat link_to t('cancel'), '#', class: 'btn btn-default'
+                                          concat link_to t('cancel', scope: :btemplater), '#', class: 'btn btn-default'
                                         end)
                 end)
       end

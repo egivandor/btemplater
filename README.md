@@ -61,7 +61,7 @@ Template helpers.
           Btemplater::ActionDecorator.new(
             :show,
             Proc.new { |objs| notifications.message_path(params[:messagetype], objs) },
-            t('actions.show'),
+            t('actions.show', scope: :btemplater),
             'file'
           )
         ]
