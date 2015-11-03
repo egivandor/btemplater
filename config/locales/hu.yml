@@ -7,3 +7,4 @@ hu:
       destroy: 'Törlés'
       are_you_sure: 'Biztos benne, hogy törli?'
       back: 'Vissza'
+  not_authorized: 'Nincs joga megtekinteni az oldalt!'
