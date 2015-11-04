@@ -1,7 +1,7 @@
 module Btemplater
   module ShowHelper
     def do_show(args)
-      raise Pundit::NotAuthorizedError unless "#{args[:model]}Policy".constantize.new(current_user, args[:item]).show?
+      raise Pundit::NotAuthorizedError unless "#{args[:model]}Policy".constantize.new(Btemplater::Engine.config.current_user_entity.call(self), args[:item]).show?
 
       args.merge(
         title: [],

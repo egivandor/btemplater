@@ -2,6 +2,22 @@
 
 Template helpers.
 
+## Configuration
+
+Set the current_user entity
+
+    module Btemplater
+      class Engine < Rails::Engine
+        config.current_user_entity = Proc.new do |u|
+          u
+        end
+      end
+    end
+
+Get current user:
+
+    Btemplater::Engine.config.current_user_entity.call(self)
+
 ## Controller
 
     helper Btemplater::ApplicationHelper

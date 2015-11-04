@@ -18,7 +18,7 @@ module Btemplater
     private
 
     def obj_params(obj, model)
-      policy = "#{model}Policy".constantize.new(current_user, obj || model)
+      policy = "#{model}Policy".constantize.new(Btemplater::Engine.config.current_user_entity.call(self), obj || model)
       params.require(model.to_s.demodulize.underscore.to_sym).permit(policy.permitted_attributes)
     end
   end

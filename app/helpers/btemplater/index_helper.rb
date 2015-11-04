@@ -1,7 +1,7 @@
 module Btemplater
   module IndexHelper
     def do_index(args)
-      raise Pundit::NotAuthorizedError unless "#{args[:model]}Policy".constantize.new(current_user, args[:model]).index?
+      raise Pundit::NotAuthorizedError unless "#{args[:model]}Policy".constantize.new(Btemplater::Engine.config.current_user_entity.call(self), args[:model]).index?
 
       args.merge(
         title: [],
@@ -72,7 +72,7 @@ module Btemplater
               end
               concat(content_tag(:td) do
                 args[:actions].each do |action|
-                  if "#{item.class.to_s}Policy".constantize.new(current_user, item).send("#{action.name}?")
+                  if "#{item.class.to_s}Policy".constantize.new(Btemplater::Engine.config.current_user_entity.call(self), item).send("#{action.name}?")
                     if action.instance_of? Btemplater::ActionDecorator
                       concat(content_tag(:div, action_decorator(action, item), style: 'display: inline;'))
                     else
@@ -97,7 +97,7 @@ module Btemplater
         link_to t('helpers.submit.create', model: args[:model].class.model_name.human),
                 url_for(controller: args[:model].class.to_s.tableize, action: :new),
                 class: 'btn btn-primary'
-      end if "#{args[:model].class.to_s}Policy".constantize.new(current_user, args[:model]).new?
+      end if "#{args[:model].class.to_s}Policy".constantize.new(Btemplater::Engine.config.current_user_entity.call(self), args[:model]).new?
     end
   end
 end

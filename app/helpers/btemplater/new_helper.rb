@@ -1,7 +1,7 @@
 module Btemplater
   module NewHelper
     def do_new(args)
-      raise Pundit::NotAuthorizedError unless "#{args[:model]}Policy".constantize.new(current_user, args[:item]).new?
+      raise Pundit::NotAuthorizedError unless "#{args[:model]}Policy".constantize.new(Btemplater::Engine.config.current_user_entity.call(self), args[:item]).new?
 
       args.merge(
         title: [],
