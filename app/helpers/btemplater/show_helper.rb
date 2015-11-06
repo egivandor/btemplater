@@ -32,7 +32,10 @@ module Btemplater
         )
         concat(
           content_tag(:div, class: 'actions') do
-            link_to t('actions.back', scope: :btemplater), args[:url] || :back, class: 'btn btn-primary'
+            concat link_to(t('actions.back', scope: :btemplater), args[:url] || :back, class: 'btn btn-primary')
+            args[:actions].each do |action|
+              concat action
+            end
           end
         )
       end

@@ -88,21 +88,23 @@ Get current user:
 
 ### show.html.erb
 
-    <%=
-      do_show({
-        title: t(".#{params[:messagetype]}"),
-        columns: [
-          :subject,
-          Btemplater::ShowDecorator.new(
-            :created_at,
-            {format: :short} # show_for gem parameters
-          ),
-          :body
-        ],
-        item: @obj,
-        model: Notifications::Message,
-        url: notifications.messages_path(params[:messagetype]),
-        method: :post
-      })
+    <%= do_show({
+      title: t(".#{params[:messagetype]}", obj: @obj.subject),
+      columns: [
+        Btemplater::ShowDecorator.new(:created_at, {}),
+        Btemplater::ShowDecorator.new(:pretty_name, {in: :sender}),
+        Btemplater::ShowDecorator.new(:pretty_name, {in: :recipient}),
+        Btemplater::ShowDecorator.new(:body, {}, lambda { |d| content_tag(:pre, d) })
+      ],
+      item: @obj,
+      model: Notifications::Message,
+      url: notifications.messages_path(params[:messagetype]),
+      method: :post,
+      actions: [
+        link_to(notifications.reply_message_path(params[:messagetype], @obj), class: 'btn btn-default') do
+          "<span class=\"fa fa-reply\"></span> #{t('actions.reply', scope: :btemplater)}".html_safe
+        end
+      ]
+    })
     %>
 
